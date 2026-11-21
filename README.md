@@ -14,6 +14,10 @@
 
 Management accounting and operations research frequently require allocating scarce production resources across competing products to maximise contribution. This application allows users to adjust unit contributions, resource consumption rates, available capacities, and integer constraints ("Whole units only") to inspect optimal production quantities, maximum contribution, resource utilisation, and slack.
 
+## Objective
+
+The objective of this model is to reach maximum profit (measured through total contribution, assuming fixed period costs over the production window) by calculating the **optimum production plan**—the exact combination of product quantities that generates the highest possible return without breaching any resource limits. Rather than picking products based solely on the highest per-unit margin or single-resource efficiency, linear programming evaluates all constraints simultaneously across the feasible region to identify the optimal corner/intersection point where contribution is maximised.
+
 ## Dynamic Data Model & "What If" Scenario Analysis
 
 The underlying data model is **not static**. While the default inputs provide a baseline scenario anchored to an ACCA linear programming example so outputs can be verified directly against established workings, all input parameters are interactive:
