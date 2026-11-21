@@ -20,32 +20,58 @@ This project follows an **Algebraic Notation** workflow rather than relying on u
 ## Algebraic Formulation
 
 Let:
-* $x_1$ = units of **Product X** to produce
-* $x_2$ = units of **Product Y** to produce
-* $c_1, c_2$ = contribution per unit ($) for Product X and Product Y
-* $a_{m1}, a_{m2}$ = material required per unit (kg) for Product X and Product Y
-* $a_{l1}, a_{l2}$ = labour required per unit (hours) for Product X and Product Y
-* $M$ = total available material (kg)
-* $L$ = total available labour (hours)
+* $X$ = units of **Product X** to produce
+* $Y$ = units of **Product Y** to produce
+* $30$ and $40$ = contribution per unit ($) for Product X and Product Y
 
 **Objective Function (Maximise Total Contribution):**
 
-$$\text{Maximise } Z = c_1 x_1 + c_2 x_2$$
+$$\text{Maximise } Z = 30X + 40Y$$
 
 **Subject to:**
 
 $$\begin{aligned}
-a_{m1} x_1 + a_{m2} x_2 &\le M \quad \text{(Material constraint, kg)} \\
-a_{l1} x_1 + a_{l2} x_2 &\le L \quad \text{(Labour constraint, hours)} \\
-x_1, x_2 &\ge 0 \quad \text{(Non-negativity; or } x_1, x_2 \in \mathbb{Z}_{\ge 0} \text{ when whole units are enforced)}
+3X + 5Y &\le 15,000 \quad \text{(Material constraint, kg)} \\
+4X + 4Y &\le 16,000 \quad \text{(Labour constraint, hours)} \\
+X, Y &\ge 0 \quad \text{(Non-negativity; or } X, Y \in \mathbb{Z}_{\ge 0} \text{ when whole units are enforced)}
 \end{aligned}$$
 
-## Example Scenario
+## Example Scenario & Workings
 
 ### Inputs
 * **Product X:** $3.00\text{ kg}$ material/unit, $4.00\text{ hours}$ labour/unit, $\$30.00$ contribution/unit
 * **Product Y:** $5.00\text{ kg}$ material/unit, $4.00\text{ hours}$ labour/unit, $\$40.00$ contribution/unit
 * **Available Resources:** $15,000.00\text{ kg}$ material; $16,000.00\text{ hours}$ labour; continuous units
+
+### Working 1
+
+The optimal point is at point B, which is at the intersection of:
+
+$$3X + 5Y = 15,000$$
+
+$$4X + 4Y = 16,000$$
+
+Multiplying the first equation by four and the second by three we get:
+
+$$12X + 20Y = 60,000$$
+
+$$12X + 12Y = 48,000$$
+
+The difference in the two equations is:
+
+$$8Y = 12,000, \quad \text{or} \quad Y = 1,500$$
+
+Substituting $Y = 1,500$ in any of the above equations will give us the $X$ value:
+
+$$3X + 5(1,500) = 15,000$$
+
+$$3X = 7,500$$
+
+$$X = 2,500$$
+
+The contribution gained is:
+
+$$(2,500 \times 30) + (1,500 \times 40) = \$135,000$$
 
 ### Optimised Output
 * **Product X:** $2,500.00\text{ units}$
@@ -57,9 +83,9 @@ x_1, x_2 &\ge 0 \quad \text{(Non-negativity; or } x_1, x_2 \in \mathbb{Z}_{\ge 0
 
 ## Model Behaviour & Validation
 
-* **Continuous vs. Integer Solutions:** Leaving *Whole units only* unchecked solves a continuous Linear Programming (LP) model. Checking *Whole units only* switches the formulation to Mixed-Integer Linear Programming (MILP) so fractional units are not recommended when discrete items are required.
+* **Continuous vs. Integer Solutions:** Leaving *Whole units only* unchecked solves a continuous Linear Programming (LP) model. Checking *Whole units only* switches the formulation to Mixed-Integer Linear Programming (MILP) when discrete items are required.
 * **Binding Constraints & Slack:** Resources at $100.0\%$ utilisation are binding constraints ($0.00$ slack) that limit total contribution. Non-binding resources display positive slack, indicating unused capacity.
-* **Verification:** Solver results are cross-checked against manual simultaneous-equation solutions at the binding intersection ($3x_1 + 5x_2 = 15,000$ and $4x_1 + 4x_2 = 16,000 \implies x_1 = 2,500, x_2 = 1,500$) and spreadsheet solver models.
+* **Verification:** Solver results match Working 1 at the binding intersection and are cross-checked against spreadsheet solver models.
 
 ## Project Structure
 
