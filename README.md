@@ -22,7 +22,7 @@ This project follows an **Algebraic Notation** workflow rather than relying on u
 Let:
 * $X$ = units of **Product X** to produce
 * $Y$ = units of **Product Y** to produce
-* $30$ and $40$ = contribution per unit ($) for Product X and Product Y
+* Contribution per unit: $30 for Product X and $40 for Product Y
 
 **Objective Function (Maximise Total Contribution):**
 
@@ -36,11 +36,22 @@ $$\begin{aligned}
 X, Y &\ge 0 \quad \text{(Non-negativity; or } X, Y \in \mathbb{Z}_{\ge 0} \text{ when whole units are enforced)}
 \end{aligned}$$
 
+## From Algebra to Prompt Engineering & PuLP
+
+Those few lines of algebra act directly as the specification for both **prompt engineering** and the **`PuLP`** model translation—keeping AI code generation anchored to explicit mathematical constraints rather than guesswork:
+
+* **Prompt Engineering Specification:** Rather than asking an AI assistant for a generic "production app," the prompt supplies the exact objective ($\text{Maximise } Z = 30X + 40Y$), constraints ($3X + 5Y \le 15,000$ and $4X + 4Y \le 16,000$), non-negativity/integer option, and required outputs (optimal $X$, $Y$, contribution, and resource slack).
+* **Translation into `PuLP`:** Each algebraic element maps one-to-one into `PuLP`:
+  * **Problem & Sense:** `LpProblem("Production_Optimisation", pulp.LpMaximize)`
+  * **Decision Variables:** `LpVariable("X", lowBound=0, cat="Continuous")` (or `"Integer"` when *Whole units only* is selected) and `LpVariable("Y", lowBound=0, cat=...)`
+  * **Objective Function:** `prob += 30 * X + 40 * Y, "Total_Contribution"`
+  * **Constraints:** `prob += 3 * X + 5 * Y <= 15000, "Material_Limit"` and `prob += 4 * X + 4 * Y <= 16000, "Labour_Limit"`
+
 ## Example Scenario & Workings
 
 ### Inputs
-* **Product X:** $3.00\text{ kg}$ material/unit, $4.00\text{ hours}$ labour/unit, $\$30.00$ contribution/unit
-* **Product Y:** $5.00\text{ kg}$ material/unit, $4.00\text{ hours}$ labour/unit, $\$40.00$ contribution/unit
+* **Product X:** $3.00\text{ kg}$ material/unit, $4.00\text{ hours}$ labour/unit, $30.00 contribution/unit
+* **Product Y:** $5.00\text{ kg}$ material/unit, $4.00\text{ hours}$ labour/unit, $40.00 contribution/unit
 * **Available Resources:** $15,000.00\text{ kg}$ material; $16,000.00\text{ hours}$ labour; continuous units
 
 ### Working 1
@@ -71,12 +82,12 @@ $$X = 2,500$$
 
 The contribution gained is:
 
-$$(2,500 \times 30) + (1,500 \times 40) = \$135,000$$
+$$(2,500 \times 30) + (1,500 \times 40) = 135,000$$
 
 ### Optimised Output
 * **Product X:** $2,500.00\text{ units}$
 * **Product Y:** $1,500.00\text{ units}$
-* **Maximum Contribution:** $\$135,000.00$
+* **Maximum Contribution:** $135,000.00
 * **Resource Utilisation & Slack:**
   * Material: $100.0\%$ used ($0.00\text{ kg}$ slack)
   * Labour: $100.0\%$ used ($0.00\text{ hours}$ slack)
