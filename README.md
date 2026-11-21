@@ -1,4 +1,7 @@
 # LPP Graphical Optimisation
+> **Portfolio Example | Prescriptive Analytics & Operations Research**
+> 
+> This project demonstrates an **Algebraic Notation** workflow for translating management accounting problems into interactive decision-support tools. Rather than relying on unverified generative AI code, the linear programming model is formulated and validated mathematically first—putting the human first so systemic error remains a consequence, not a cause.
 
 An interactive linear programming web application built with Python and Streamlit to determine the contribution-maximising product mix under resource constraints.
 
