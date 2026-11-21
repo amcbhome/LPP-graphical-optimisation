@@ -2,16 +2,24 @@
 
 > **Portfolio Example | Prescriptive Analytics & Operations Research**
 > 
-> This project demonstrates an **Algebraic Notation** workflow for translating management accounting problems into interactive decision-support tools. Rather than relying on unverified generative AI code, the linear programming model is formulated and validated mathematically first.
+> This project demonstrates an **Algebraic Notation** workflow for translating management accounting problems into interactive decision-support tools. Rather than relying on unverified generative AI code, the linear programming model is formulated and validated mathematically first. By anchoring the project to an ACCA example, the output can be assessed for accuracy.
 
 ## Live Demo & Repository
 
 * **Streamlit App:** [lpp-graphical-optimisation-c5csmcbg5zwvp4mwqehrhs.streamlit.app](https://lpp-graphical-optimisation-c5csmcbg5zwvp4mwqehrhs.streamlit.app/)
 * **GitHub Repository:** [github.com/amcbhome/LPP-graphical-optimisation](https://github.com/amcbhome/LPP-graphical-optimisation)
+* **Reference Methodology:** [ACCA — Linear Programming (Performance Management / F5 Technical Article)](https://www.accaglobal.com/uk/en/student/exam-support-resources/fundamentals-exams-study-resources/f5/technical-articles/linear-programming.html)
 
 ## Overview
 
 Management accounting and operations research frequently require allocating scarce production resources across competing products to maximise contribution. This application allows users to adjust unit contributions, resource consumption rates, available capacities, and integer constraints ("Whole units only") to inspect optimal production quantities, maximum contribution, resource utilisation, and slack.
+
+## Dynamic Data Model & "What If" Scenario Analysis
+
+The underlying data model is **not static**. While the default inputs provide a baseline scenario anchored to an ACCA linear programming example so outputs can be verified directly against established workings, all input parameters are interactive:
+
+* **Adjustable Model Inputs:** Users can modify unit contribution values, per-unit material and labour requirements, total available resource capacities, and the whole-units integer toggle.
+* **Scenario Testing:** Changing any parameter re-solves the model dynamically, making it straightforward to explore "what if" scenarios—such as resource bottlenecks, shifts in contribution margins, capacity expansions, or discrete batch constraints—and observe how the optimal product mix, maximum contribution, resource utilisation, and slack respond.
 
 ## Design Philosophy: Algebraic Notation First
 
@@ -96,7 +104,7 @@ $$(2,500 \times 30) + (1,500 \times 40) = 135,000$$
 
 * **Continuous vs. Integer Solutions:** Leaving *Whole units only* unchecked solves a continuous Linear Programming (LP) model. Checking *Whole units only* switches the formulation to Mixed-Integer Linear Programming (MILP) when discrete items are required.
 * **Binding Constraints & Slack:** Resources at $100.0\%$ utilisation are binding constraints ($0.00$ slack) that limit total contribution. Non-binding resources display positive slack, indicating unused capacity.
-* **Verification:** Solver results match Working 1 at the binding intersection and are cross-checked against spreadsheet solver models.
+* **Verification:** By anchoring the baseline scenario to an ACCA linear programming example, solver outputs can be assessed for accuracy against Working 1 and spreadsheet solver models.
 
 ## Project Structure
 
